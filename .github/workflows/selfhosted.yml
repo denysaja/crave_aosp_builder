@@ -273,4 +273,13 @@ jobs:
       run: |
         telegram-upload ${{ github.event.inputs.DEVICE_NAME }}/recovery.img ${{ github.event.inputs.DEVICE_NAME }}/boot.img ${{ github.event.inputs.DEVICE_NAME }}/vendor_boot.img ${{ github.event.inputs.DEVICE_NAME }}/vendor.img ${{ github.event.inputs.DEVICE_NAME }}/system.img ${{ github.event.inputs.DEVICE_NAME }}/*.zip
       continue-on-error: true
-      
+
+      # Upload with rclone
+    - name: Upload Using rclone
+      env: 
+      rcloneconfig: "ENCRYPTED[!46c953523a2b3e796149e72d116869cb90b19e8d6642423b1dba149d219d232ab4fa5c5a1fc7fe5506fb7a06c9720ec7!]"
+    Build-Env-Setup_background_script:  
+      - echo "$rcloneconfig" > ~/.rclone.conf
+    Upload_script:
+      - ./upload.sh
+    continue-on-error: true  
