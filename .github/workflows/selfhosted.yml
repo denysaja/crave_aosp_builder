@@ -23,7 +23,7 @@ on:
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
-        default: "echo 'Build Starting!'"
+        default: "repo init -u https://github.com/CherishOS/android_manifest.git -b udc"
       REMOVALS:
         description: "Folders to be removed before syncing:"
         required: false
@@ -34,7 +34,7 @@ on:
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
-        default: 'los21'
+        default: 'cherish14-sagit'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
@@ -42,11 +42,11 @@ on:
       PRODUCT_NAME:
         description: "Product to build:"
         required: true
-        default: "lineage_sagit"
+        default: "cherish_sagit"
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: true
-        default: 'mka bacon'
+        default: 'rm -rf hardware/qcom-caf/sm8550/display && mka bacon'
       BUILD_TYPE:
         description: 'Type of build:'
         required: true
