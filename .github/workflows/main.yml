@@ -16,7 +16,7 @@ on:
         default: 'LineageOS 21.0'
         type: choice
         options:
-          - 'LineageOS 21.0'
+          - 'LineageOS 20.0'
           - 'LineageOS 21.0'
           - 'ArrowOS 13.1'
           - 'DerpFest 13.0'
