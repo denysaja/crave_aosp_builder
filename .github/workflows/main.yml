@@ -16,12 +16,12 @@ on:
         default: 'LineageOS 20.0'
         type: choice
         options:
-          - 'LineageOS 20.0'
+          - 'LineageOS 21.0'
           - 'LineageOS 21.0'
           - 'ArrowOS 13.1'
           - 'DerpFest 13.0'
       BUILD_DIFFERENT_ROM:
-        description: "Command to initialize a different 'repo' project:"
+        description: "repo init -u https://github.com/CherishOS/android_manifest.git -b udc"
         required: false
       REMOVALS:
         description: "Folders to be removed before syncing:"
@@ -33,19 +33,19 @@ on:
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
-        default: 'lineage-oxygen'
+        default: 'cherish14-sagit'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
-        default: "oxygen"
+        default: "sagit"
       PRODUCT_NAME:
         description: "Product to build:"
         required: true
-        default: "lineage_oxygen"
+        default: "cherish_sagit"
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: true
-        default: 'mka bacon'
+        default: 'rm -rf hardware/qcom-caf/sm8550/display && mka bacon'
       BUILD_TYPE:
         description: 'Type of build:'
         required: true
