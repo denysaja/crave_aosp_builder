@@ -99,6 +99,10 @@ jobs:
       run: |
         crave devspace -- "if tmux has-session -t ghactions; then 
           echo "Runner is already Running" 
+          tmux kill-session -t ghactions;
+          tmux new-session -d -s ghactions 
+          tmux send-keys -t ghactions './actions-runner/run.sh' Enter 
+          echo "Runner Started"
         else 
           tmux kill-session -t ghactions;
           tmux new-session -d -s ghactions 
