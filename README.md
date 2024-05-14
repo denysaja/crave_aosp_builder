@@ -46,6 +46,7 @@ Ensure you have no random spaces before or after
 
 - Start the workflow
 - After this is done, you are ready to build! Go to the "Crave Builder(self-hosted)" workflow and start building
+
 (If the runner is offline still, trigger "Start/Restart Selfhosted Runner" workflow to force-restart the selfhosted runner)
 
 ## Required Secrets
@@ -84,6 +85,11 @@ If this exists, these files will be uploaded too. Remember to use relative path 
 Bot token for telegram notifications
 ### TELEGRAM_TO (Optional)
 Chat id for telegram notifications
+### TG_UPLOAD_LIMIT (Optional)
+Custom Upload limit for telegram-upload. Default is 2147483648
+### GH_UPLOAD_LIMIT (Optional)
+Custom Upload limit for github releases. Default is 2147483648
+
 ## Inputs Explanation
 ### Base Project
     - These are the projects everyone can build, with a foss.crave.io account
