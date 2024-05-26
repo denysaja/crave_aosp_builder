@@ -46,7 +46,7 @@ on:
       PRODUCT_NAME:
         description: "Product to build:"
         required: true
-        default: "merlinx_sagit"
+        default: "derp_merlinx"
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: true
