@@ -27,7 +27,7 @@ on:
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
-        default: "repo init -u https://github.com/DerpFest-AOSP/manifest.git -b 14"
+        default: "repo init --depth 1 -u https://github.com/DerpFest-AOSP/manifest.git -b 14"
       REMOVALS:
         description: "Folders to be removed before syncing:"
         required: false
