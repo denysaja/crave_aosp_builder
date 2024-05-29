@@ -387,6 +387,11 @@ jobs:
         
         # Sync the repositories
         /opt/crave/resync.sh  && \
+
+        # init ulang vendor/gms
+        rm -rf vendor/gms ; \
+        repo init --depth 1 -u https://github.com/DerpFest-AOSP/manifest.git -b 14 --git-lfs ; \
+        repo sync vendor/gms && \
         
         # Set up build environment
         export BUILD_USERNAME=${{ github.actor }} ; \
