@@ -28,9 +28,10 @@ on:
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
-        default: "repo init --depth 1 -u https://github.com/DerpFest-AOSP/manifest.git -b 14"
+        default: "repo init --depth 1 -u https://github.com/DerpFest-AOSP/manifest.git -b 14 --git-lfs"
       REMOVALS:
         description: "Folders to be removed before syncing:"
+        default: "external/chromium-webview"
         required: false
       LOCAL_MANIFEST:
         description: "Personal local manifest [repository or raw]:"
@@ -388,9 +389,10 @@ jobs:
         # Sync the repositories
         /opt/crave/resync.sh  && \
 
+        repo forall -c 'git lfs install && git lfs pull && git lfs checkout'
+        
         # init ulang vendor/gms
         rm -rf vendor/gms ; \
-        repo init --depth 1 -u https://github.com/DerpFest-AOSP/manifest.git -b 14 --git-lfs ; \
         repo sync vendor/gms && \
         
         # Set up build environment
@@ -402,6 +404,7 @@ jobs:
         echo "Run ID: ${{ github.run_id }}"; \
 
         # Build the ROM
+        
         lunch ${{ github.event.inputs.PRODUCT_NAME }}-${{ github.event.inputs.BUILD_TYPE }} && \
         make installclean && \
         ${{ github.event.inputs.BUILD_COMMAND }}"
