@@ -389,7 +389,7 @@ jobs:
         # Sync the repositories
         /opt/crave/resync.sh  && \
 
-        repo forall -c 'git lfs install && git lfs pull && git lfs checkout'
+        repo forall -c 'git lfs install && git lfs pull && git lfs checkout' ; \
         
         # init ulang vendor/gms
         rm -rf vendor/gms ; \
