@@ -13,7 +13,7 @@ on:
       BASE_PROJECT:
         description: 'Choose a base project:'
         required: true
-        default: 'DerpFest 13.0'
+        default: 'LineageOS 21.0'
         type: choice
         options:
           - 'LineageOS 20.0'
@@ -29,7 +29,7 @@ on:
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
-        default: "echo 'Build Starting!'"
+        default: "repo init -u https://github.com/alphadroid-project/manifest -b alpha-14 --git-lfs"
       REMOVALS:
         description: "Folders to be removed before syncing:"
         required: false
@@ -40,7 +40,7 @@ on:
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
-        default: 'derp13-sagit'
+        default: 'alpha14-sagit'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
@@ -48,15 +48,15 @@ on:
       PRODUCT_NAME:
         description: "Product to build:"
         required: true
-        default: "derp_sagit"
+        default: "lineage_sagit"
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: true
-        default: 'mka derp'
+        default: 'make bacon'
       BUILD_TYPE:
         description: 'Type of build:'
         required: true
-        default: 'user'
+        default: 'userdebug'
         type: choice
         options: 
         - 'eng'
