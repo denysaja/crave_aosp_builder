@@ -40,7 +40,7 @@ on:
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
-        default: 'alpha14-sagit'
+        default: 'alpha14-sagit-microg'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
