@@ -40,7 +40,7 @@ on:
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
-        default: 'rising14-sagit'
+        default: 'rising14-sagit-vanilla'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
