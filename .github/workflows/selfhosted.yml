@@ -29,7 +29,7 @@ on:
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
-        default: "repo init -u https://github.com/alphadroid-project/manifest -b alpha-14 --git-lfs"
+        default: "repo init -u https://github.com/clarencekopitiam/android_manifest.git -b lineage-21.0 --git-lfs"
       REMOVALS:
         description: "Folders to be removed before syncing:"
         required: false
@@ -40,7 +40,7 @@ on:
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
-        default: 'alpha14-sagit'
+        default: 'pixelage'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
