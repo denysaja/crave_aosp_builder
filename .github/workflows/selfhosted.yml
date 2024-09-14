@@ -29,7 +29,7 @@ on:
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
-        default: "repo init -u https://github.com/ProjectPixelage/android_manifest.git -b 14 --git-lfs"
+        default: "repo init -u https://github.com/ProjectPixelage/android_manifest.git -b 15 --git-lfs"
       REMOVALS:
         description: "Folders to be removed before syncing:"
         required: false
