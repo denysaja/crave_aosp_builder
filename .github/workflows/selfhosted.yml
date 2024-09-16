@@ -33,14 +33,15 @@ on:
       REMOVALS:
         description: "Folders to be removed before syncing:"
         required: false
+        default: "external/chromium-webview"
       LOCAL_MANIFEST:
         description: "Personal local manifest [repository or raw]:"
         required: true
-        default: 'https://github.com/deny2311/local_manifests'
+        default: 'https://github.com/denysaja/local_manifests'
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
-        default: 'pixelage'
+        default: 'pixelage-15'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
