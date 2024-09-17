@@ -49,7 +49,7 @@ on:
       PRODUCT_NAME:
         description: "Product to build:"
         required: true
-        default: "lineage_sagit-ap3a"
+        default: "pixelage_sagit-ap3a"
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: true
