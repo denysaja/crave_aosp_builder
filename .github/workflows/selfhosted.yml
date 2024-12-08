@@ -18,6 +18,7 @@ on:
         options:
           - 'LineageOS 20.0'
           - 'LineageOS 21.0'
+          - 'LineageOS 22.0'
           - 'ArrowOS 13.1'
           - 'DerpFest 14.0'
           - 'CipherOS 14'
@@ -26,6 +27,7 @@ on:
           - 'LineageOS 18.1'
           - 'LineageOS 16.0'
           - 'CyanogenMOD 14.1'
+          - 'AOSP'
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
@@ -87,7 +89,8 @@ jobs:
       # Download and configure 'crave'.
     - name: Configure the 'crave' environment
       run: |
-        if [ "${DCDEVSPACE}" == "1" ]; then
+        echo "DCDEVSPACE status: ${DCDEVSPACE}"
+        if [[ "${DCDEVSPACE}" == "1" ]]; then
         echo 'No need to set up crave, we are already running in devspace!'
         else
           mkdir ${HOME}/bin/
@@ -103,7 +106,16 @@ jobs:
 
     - name: Run crave devspace
       run: |
-        crave ${{ secrets.CRAVE_FLAGS }} devspace -- "if tmux has-session -t ghactions; then 
+        crave ${{ secrets.CRAVE_FLAGS }} devspace -- "echo "Looking for runner..."
+          # Look for whether there's a runner folder set up
+          if [ -f actions-runner/run.sh ] ; then
+            echo "Runner found! Restarting it..."
+          else
+            echo "Error! Runner not found!"
+            exit 1
+          fi
+
+        if tmux has-session -t ghactions; then 
           echo "Runner is already Running" 
         else 
           tmux kill-session -t ghactions;
@@ -119,7 +131,12 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Check Credentials
-      run: bash scripts/env-checker.sh
+      run: |
+        if [[ -z "${{ secrets.CRAVE_TOKEN }}" || -z "${{ secrets.CRAVE_USERNAME }}" ]]; then
+          echo "Crave Credentials Not Configured! Exiting..."
+          exit 1
+        fi
+        bash scripts/env-checker.sh
 
     - name: Set Project variables
       id: proj-variables
@@ -139,6 +156,11 @@ jobs:
           export PROJECTFOLDER="/crave-devspaces/Lineage21"
           export PROJECTID="72"
           export REPO_INIT="repo init -u https://github.com/LineageOS/android.git -b lineage-21.0 --git-lfs --depth=1"
+        ;;
+        "LineageOS 22.0")
+          export PROJECTFOLDER="/crave-devspaces/Lineage22"
+          export PROJECTID="93"
+          export REPO_INIT="repo init -u https://github.com/LineageOS/android.git -b lineage-22.0 --git-lfs --depth=1"
         ;;
         "LineageOS 20.0")
           export PROJECTFOLDER="/crave-devspaces/Lineage20"
@@ -174,6 +196,11 @@ jobs:
           export PROJECTFOLDER="/crave-devspaces/Cyanogen14"
           export PROJECTID="83"
           export REPO_INIT="repo init -u https://github.com/accupara/los-cm14.1.git -b cm-14.1 --git-lfs --depth=1"
+        ;;
+        "AOSP")
+          export PROJECTFOLDER="/crave-devspaces/AOSP"
+          export PROJECTID="35"
+          export REPO_INIT="repo init -u https://android.googlesource.com/platform/manifest.git -b master --git-lfs --depth=1"
         ;;
         esac
 
@@ -308,7 +335,7 @@ jobs:
     needs: test
     runs-on: self-hosted
     concurrency:
-      group: ${{ github.actor }}
+      group: ${{ github.repository_owner }}
     steps:
       # Accept Project Variables
     - name: Set Repo Project
@@ -351,7 +378,8 @@ jobs:
       # Create a project folder
     - name: Create Project Folders
       run: |
-        if [ "${DCDEVSPACE}" != "1" ]; then
+        echo "DCDEVSPACE status: ${DCDEVSPACE}"
+        if [[ "${DCDEVSPACE}" != "1" ]]; then
           echo "Symlinking devspace folder"
           mkdir -p devspace
           sudo mkdir -p /crave-devspaces
@@ -360,13 +388,13 @@ jobs:
         else
           echo "We are already running in devspace... Skipping Symlinks"
         fi
-        if grep -q "$PROJECTFOLDER" <(crave clone list --json | jq -r '.clones[]."Cloned At"') && [ "${DCDEVSPACE}" == "1" ]; then
+        if grep -q "$PROJECTFOLDER" <(crave clone list --json | jq -r '.clones[]."Cloned At"') || [[ "${DCDEVSPACE}" == "1" ]]; then
           crave clone destroy -y $PROJECTFOLDER || echo "Error removing $PROJECTFOLDER"
         else          
         echo "Skipping removal"
         fi
 
-        if [ "${DCDEVSPACE}" == "1" ]; then
+        if [[ "${DCDEVSPACE}" == "1" ]]; then
           crave clone create --projectID $PROJECTID $PROJECTFOLDER || echo "Crave clone create failed!"
         else
           mkdir $PROJECTFOLDER
@@ -393,8 +421,9 @@ jobs:
       # Download and configure 'crave'.
     - name: Configure the 'crave' environment
       run: |
+        echo "DCDEVSPACE status: ${DCDEVSPACE}"
         mkdir -p $PROJECTFOLDER/.repo/manifests
-        if [ "${DCDEVSPACE}" == "1" ]; then
+        if [[ "${DCDEVSPACE}" == "1" ]]; then
         echo 'No need to set up crave, we are already running in devspace!'
         else
           curl -s https://raw.githubusercontent.com/accupara/crave/master/get_crave.sh | bash -s --
@@ -420,7 +449,7 @@ jobs:
     - name: Set the 'crave' project
       run: |
         cd $PROJECTFOLDER
-        if grep -q "$PROJECTFOLDER" <(crave clone list --json | jq -r '.clones[]."Cloned At"') && [ "${DCDEVSPACE}" == "1" ]; then
+        if grep -q "$PROJECTFOLDER" <(crave clone list --json | jq -r '.clones[]."Cloned At"') || [[ "${DCDEVSPACE}" == "1" ]]; then
           echo "Using Crave Clone... skipping"
         else
           echo "Running $REPO_INIT"
@@ -445,7 +474,12 @@ jobs:
         
         jq '.projects = []' ~/crave.conf > tmp && mv tmp ~/crave.conf
         if [ "${{ github.event.inputs.CLEAN_BUILD }}" == "yes" ]; then
-           export CLEAN="clean"
+           export CLEAN="--clean"
+        fi
+
+        if [[ -n "${{ secrets.PAID }}" ]]; then
+           echo "Paid Build... Tokens will be consumed."
+           export PAID="--platform aosp-silver"
         fi
 
         echo "Build is queued! Please wait for your build to start."
@@ -453,7 +487,7 @@ jobs:
         echo "Running build's log will show up here!"
 
 
-        crave run --no-patch --${CLEAN} "rm -rf .repo/local_manifests/ ${{ github.event.inputs.REMOVALS }} && \
+        crave ${{ secrets.CRAVE_FLAGS }} run --no-patch ${PAID} ${CLEAN} -- "rm -rf .repo/local_manifests/ ${{ github.event.inputs.REMOVALS }} && \
         # Clone local_manifests repository
         $BUILD_DIFFERENT_ROM ; \
         $LOCAL_MANIFEST && \
@@ -562,7 +596,7 @@ jobs:
     - name: Destroy Crave Clone
       if: ${{ always() }}
       run: |
-        if grep -q "$PROJECTFOLDER" <(crave clone list --json | jq -r '.clones[]."Cloned At"') && [ "${DCDEVSPACE}" == "1" ]; then
+        if grep -q "$PROJECTFOLDER" <(crave clone list --json | jq -r '.clones[]."Cloned At"') || [[ "${DCDEVSPACE}" == "1" ]]; then
           crave clone destroy -y $PROJECTFOLDER || echo "Error removing $PROJECTFOLDER"
         else          
           echo "Skipping removal"

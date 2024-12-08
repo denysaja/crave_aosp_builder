@@ -26,7 +26,7 @@ jobs:
       # Download and configure 'crave'.
     - name: Configure the 'crave' environment
       run: |
-        if [ "${DCDEVSPACE}" == "1" ]; then
+        if [[ "${DCDEVSPACE}" == "1" ]]; then
         echo 'No need to set up crave, we are already running in devspace!'
         else
           mkdir ${HOME}/bin/
@@ -43,7 +43,16 @@ jobs:
       # Start 'runner' in 'tmux'.
     - name: Run crave devspace
       run: |
-          crave ${{ secrets.CRAVE_FLAGS }} devspace -- "tmux kill-session -t ghactions || true
+          crave ${{ secrets.CRAVE_FLAGS }} devspace -- "echo "Looking for runner..."
+          # Look for whether there's a runner folder set up
+          if [ -f actions-runner/run.sh ] ; then
+            echo "Runner found! Restarting it..."
+          else
+            echo "Error! Runner not found!"
+            exit 1
+          fi
+
+          tmux kill-session -t ghactions || true
           tmux new-session -d -s ghactions 
           tmux send-keys -t ghactions './actions-runner/run.sh' Enter 
           echo "Runner Started""

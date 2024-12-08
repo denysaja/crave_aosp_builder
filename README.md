@@ -10,6 +10,10 @@
 [stars-shield]: https://img.shields.io/github/stars/sounddrill31/crave_aosp_builder.svg?style=for-the-badge
 [stars-url]: https://github.com/sounddrill31/crave_aosp_builder/stargazers
 
+Please avoid importing, or "kanging" this repository as it is frequently updated.
+
+This ensured you can easily update to the latest changes and also boosts my fork stats 😉
+
 ## Wiki
 While using this repo, please take a look at [the wiki](https://opendroid.pugzarecute.com/wiki) as well!
 
@@ -160,7 +164,7 @@ Please fill out the [form](https://forms.gle/Jhvy9osvdmcS9B7fA) if you're lookin
 ### Chat Help
 Q2. Hey, I get an error with this repository! Whom do i ask?
 
-A. Please feel free to contact me through the [crave.io discord](https://discord.crave.io) or [ROM Builders telegram](https://t.me/ROM_builders). My username is `sounddrill`
+A. Please feel free to contact me through the [crave.io discord](https://discord.crave.io) or [ROM Builders telegram](https://t.me/ROM_builders) if this repo isn't working as expected(please avoid pinging me while asking about rom building issues unrelated to this repository). My username is `sounddrill`
 
 
 ### Unsupported ROMs
@@ -171,6 +175,17 @@ A. [Read this](#repo-init-command)
 Here, we enter our repo init command for a non-supported ROM. If we are building something that's supported by crave, we can leave the default as is. 
 
 Doing this is not recommended and is known to be troublesome. However, it doesn't break any crave rules yet. 
+
+### Paid Queue
+
+To use your crave wallet with one of these projects, just set a secret called "PAID" without the quotes with any data(like "true")
+
+To know more about wallets, read this: 
+
+https://opendroid.pugzarecute.com/wiki/Crave_Devspace#paid-queue
+
+https://foss.crave.io/docs/wallets/
+
 
 ### Build Signing
 Q4. How do I sign my builds?
@@ -208,3 +223,13 @@ While building:
 ```
 mka target-files-package otatools; /opt/crave/crave_sign.sh
 ```
+
+## Star History
+
+<a href="https://star-history.com/#sounddrill31/crave_aosp_builder&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=sounddrill31/crave_aosp_builder&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=sounddrill31/crave_aosp_builder&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=sounddrill31/crave_aosp_builder&type=Date" />
+ </picture>
+</a>
