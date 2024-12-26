@@ -13,7 +13,7 @@ on:
       BASE_PROJECT:
         description: 'Choose a base project:'
         required: true
-        default: 'LineageOS 21.0'
+        default: 'LineageOS 22.0'
         type: choice
         options:
           - 'LineageOS 20.0'
@@ -31,18 +31,18 @@ on:
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
-        default: "repo init -u https://github.com/ProjectPixelage/android_manifest.git -b 15 --git-lfs"
+        default: "repo init --depth 1 -u https://github.com/ProjectPixelage/android_manifest.git -b 15 --git-lfs"
       REMOVALS:
         description: "Folders to be removed before syncing:"
         required: false
       LOCAL_MANIFEST:
         description: "Personal local manifest [repository or raw]:"
         required: true
-        default: 'https://github.com/denysaja/local_manifests'
+        default: 'https://github.com/Sagit-A15/local_manifests'
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
-        default: 'pixelage-15'
+        default: 'pixelage-15-su'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
@@ -50,7 +50,7 @@ on:
       PRODUCT_NAME:
         description: "Product to build:"
         required: true
-        default: "pixelage_sagit-ap3a"
+        default: "pixelage_sagit-ap4a"
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: true
@@ -58,7 +58,7 @@ on:
       BUILD_TYPE:
         description: 'Type of build:'
         required: true
-        default: 'userdebug'
+        default: 'user'
         type: choice
         options: 
         - 'eng'
