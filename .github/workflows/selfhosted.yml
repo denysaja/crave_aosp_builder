@@ -31,7 +31,7 @@ on:
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
-        default: "repo init --depth 1 -u https://github.com/ProjectPixelage/android_manifest.git -b 15 --git-lfs"
+        default: "repo init --depth 1 -u https://github.com/halcyonproject/manifest -b 15.1 --git-lfs"
       REMOVALS:
         description: "Folders to be removed before syncing:"
         required: false
@@ -42,7 +42,7 @@ on:
       LOCAL_MANIFEST_BRANCH:
         description: "Personal local manifest's branch:"
         required: false
-        default: 'pixelage-15-su'
+        default: 'halcyon-15-su'
       DEVICE_NAME:
         description: "Device's codename:"
         required: true
@@ -50,11 +50,11 @@ on:
       PRODUCT_NAME:
         description: "Product to build:"
         required: true
-        default: "pixelage_sagit-ap4a"
+        default: "halcyon_sagit-ap4a"
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: true
-        default: 'mka bacon'
+        default: 'make carthage'
       BUILD_TYPE:
         description: 'Type of build:'
         required: true
