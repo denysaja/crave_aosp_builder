@@ -50,7 +50,7 @@ on:
       PRODUCT_NAME:
         description: "Product to build:"
         required: true
-        default: "sagit"
+        default: "lineage_sagit-bp1a"
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: true
