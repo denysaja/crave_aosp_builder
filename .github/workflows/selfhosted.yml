@@ -31,7 +31,7 @@ on:
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
-        default: "repo init --depth 1 -u repo init -u https://github.com/Evolution-X/manifest -b bka --git-lfs"
+        default: "repo init -u repo init -u https://github.com/Evolution-X/manifest -b bka --git-lfs"
       REMOVALS:
         description: "Folders to be removed before syncing:"
         required: false
