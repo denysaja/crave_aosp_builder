@@ -54,7 +54,7 @@ on:
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: true
-        default: 'mka bacon'
+        default: 'm evolution'
       BUILD_TYPE:
         description: 'Type of build:'
         required: true
